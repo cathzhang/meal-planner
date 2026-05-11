@@ -346,5 +346,30 @@
     "liked_by": [
       "孩子"
     ]
+  },
+  {
+    "name": "洋葱肥牛",
+    "ingredients": [
+      "洋葱",
+      "肥牛"
+    ],
+    "sauces": [
+      "日式牛丼调味汁"
+    ],
+    "cook_time_minutes": 5,
+    "prep_time_minutes": 5,
+    "difficulty": "简单",
+    "dish_type": "小荤",
+    "summer_recommended": true,
+    "winter_recommended": true,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [],
+    "price_level": "中等",
+    "has_prepackaged": false,
+    "variant_group": null,
+    "liked_by": [
+      "孩子"
+    ]
   }
 ]
