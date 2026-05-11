@@ -1,0 +1,350 @@
+[
+  {
+    "name": "青椒肉丝",
+    "ingredients": [
+      "青椒",
+      "猪肉"
+    ],
+    "sauces": [
+      "生抽",
+      "料酒",
+      "淀粉"
+    ],
+    "cook_time_minutes": 20,
+    "prep_time_minutes": 15,
+    "difficulty": "中等",
+    "dish_type": "小荤",
+    "summer_recommended": true,
+    "winter_recommended": true,
+    "spicy_level": "可免辣",
+    "kid_friendly": true,
+    "seasonal_months": [],
+    "price_level": "中等",
+    "has_prepackaged": false,
+    "variant_group": null,
+    "liked_by": [
+      "爸爸"
+    ]
+  },
+  {
+    "name": "麻婆豆腐",
+    "ingredients": [
+      "豆腐",
+      "牛肉末"
+    ],
+    "sauces": [
+      "豆瓣酱",
+      "花椒粉",
+      "辣椒油"
+    ],
+    "cook_time_minutes": 25,
+    "prep_time_minutes": 10,
+    "difficulty": "中等",
+    "dish_type": "大荤",
+    "summer_recommended": false,
+    "winter_recommended": true,
+    "spicy_level": "辣",
+    "kid_friendly": false,
+    "seasonal_months": [],
+    "price_level": "便宜",
+    "has_prepackaged": true,
+    "variant_group": null,
+    "liked_by": [
+      "爸爸",
+      "妈妈"
+    ]
+  },
+  {
+    "name": "鱼香肉丝",
+    "ingredients": [
+      "猪肉",
+      "木耳",
+      "胡萝卜",
+      "青椒"
+    ],
+    "sauces": [
+      "豆瓣酱",
+      "醋",
+      "糖",
+      "生抽"
+    ],
+    "cook_time_minutes": 30,
+    "prep_time_minutes": 20,
+    "difficulty": "困难",
+    "dish_type": "小荤",
+    "summer_recommended": false,
+    "winter_recommended": true,
+    "spicy_level": "辣",
+    "kid_friendly": false,
+    "seasonal_months": [],
+    "price_level": "中等",
+    "has_prepackaged": true,
+    "variant_group": null,
+    "liked_by": []
+  },
+  {
+    "name": "红烧排骨",
+    "ingredients": [
+      "排骨"
+    ],
+    "sauces": [
+      "生抽",
+      "老抽",
+      "冰糖",
+      "八角",
+      "桂皮"
+    ],
+    "cook_time_minutes": 60,
+    "prep_time_minutes": 15,
+    "difficulty": "困难",
+    "dish_type": "大荤",
+    "summer_recommended": false,
+    "winter_recommended": true,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [],
+    "price_level": "较贵",
+    "has_prepackaged": false,
+    "variant_group": null,
+    "liked_by": [
+      "全家"
+    ]
+  },
+  {
+    "name": "蒜蓉西兰花",
+    "ingredients": [
+      "西兰花",
+      "大蒜"
+    ],
+    "sauces": [
+      "蚝油"
+    ],
+    "cook_time_minutes": 8,
+    "prep_time_minutes": 5,
+    "difficulty": "简单",
+    "dish_type": "全素",
+    "summer_recommended": true,
+    "winter_recommended": false,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [],
+    "price_level": "便宜",
+    "has_prepackaged": false,
+    "variant_group": null,
+    "liked_by": [
+      "妈妈"
+    ]
+  },
+  {
+    "name": "凉拌黄瓜",
+    "ingredients": [
+      "黄瓜",
+      "大蒜",
+      "花生米"
+    ],
+    "sauces": [
+      "醋",
+      "辣椒油",
+      "香油"
+    ],
+    "cook_time_minutes": 5,
+    "prep_time_minutes": 5,
+    "difficulty": "简单",
+    "dish_type": "全素",
+    "summer_recommended": true,
+    "winter_recommended": false,
+    "spicy_level": "可免辣",
+    "kid_friendly": true,
+    "seasonal_months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "price_level": "便宜",
+    "has_prepackaged": false,
+    "variant_group": null,
+    "liked_by": [
+      "爸爸",
+      "孩子"
+    ]
+  },
+  {
+    "name": "萝卜炖羊肉",
+    "ingredients": [
+      "羊肉",
+      "白萝卜"
+    ],
+    "sauces": [
+      "料酒",
+      "八角",
+      "白芷"
+    ],
+    "cook_time_minutes": 90,
+    "prep_time_minutes": 20,
+    "difficulty": "中等",
+    "dish_type": "大荤",
+    "summer_recommended": false,
+    "winter_recommended": true,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "price_level": "较贵",
+    "has_prepackaged": false,
+    "variant_group": "羊肉汤系列",
+    "liked_by": [
+      "爸爸"
+    ]
+  },
+  {
+    "name": "冬瓜排骨汤",
+    "ingredients": [
+      "排骨",
+      "冬瓜"
+    ],
+    "sauces": [
+      "料酒",
+      "姜片"
+    ],
+    "cook_time_minutes": 60,
+    "prep_time_minutes": 15,
+    "difficulty": "简单",
+    "dish_type": "大荤",
+    "summer_recommended": true,
+    "winter_recommended": false,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [
+      6,
+      7,
+      8
+    ],
+    "price_level": "中等",
+    "has_prepackaged": false,
+    "variant_group": "排骨汤系列",
+    "liked_by": [
+      "妈妈",
+      "孩子"
+    ]
+  },
+  {
+    "name": "玉米排骨汤",
+    "ingredients": [
+      "排骨",
+      "玉米",
+      "胡萝卜"
+    ],
+    "sauces": [
+      "料酒",
+      "姜片"
+    ],
+    "cook_time_minutes": 60,
+    "prep_time_minutes": 15,
+    "difficulty": "简单",
+    "dish_type": "大荤",
+    "summer_recommended": false,
+    "winter_recommended": true,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [
+      9,
+      10,
+      11
+    ],
+    "price_level": "中等",
+    "has_prepackaged": false,
+    "variant_group": "排骨汤系列",
+    "liked_by": [
+      "孩子"
+    ]
+  },
+  {
+    "name": "萝卜排骨汤",
+    "ingredients": [
+      "排骨",
+      "白萝卜"
+    ],
+    "sauces": [
+      "料酒",
+      "姜片"
+    ],
+    "cook_time_minutes": 60,
+    "prep_time_minutes": 15,
+    "difficulty": "简单",
+    "dish_type": "大荤",
+    "summer_recommended": false,
+    "winter_recommended": true,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "price_level": "中等",
+    "has_prepackaged": false,
+    "variant_group": "排骨汤系列",
+    "liked_by": [
+      "全家"
+    ]
+  },
+  {
+    "name": "番茄炒蛋",
+    "ingredients": [
+      "番茄",
+      "鸡蛋"
+    ],
+    "sauces": [
+      "番茄酱"
+    ],
+    "cook_time_minutes": 10,
+    "prep_time_minutes": 5,
+    "difficulty": "简单",
+    "dish_type": "小荤",
+    "summer_recommended": true,
+    "winter_recommended": false,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [],
+    "price_level": "便宜",
+    "has_prepackaged": false,
+    "variant_group": "番茄炒蛋系列",
+    "liked_by": [
+      "妈妈",
+      "孩子"
+    ]
+  },
+  {
+    "name": "番茄滑蛋",
+    "ingredients": [
+      "番茄",
+      "鸡蛋"
+    ],
+    "sauces": [
+      "番茄酱",
+      "淀粉水"
+    ],
+    "cook_time_minutes": 10,
+    "prep_time_minutes": 5,
+    "difficulty": "简单",
+    "dish_type": "小荤",
+    "summer_recommended": true,
+    "winter_recommended": false,
+    "spicy_level": "不辣",
+    "kid_friendly": true,
+    "seasonal_months": [],
+    "price_level": "便宜",
+    "has_prepackaged": false,
+    "variant_group": "番茄炒蛋系列",
+    "liked_by": [
+      "孩子"
+    ]
+  }
+]

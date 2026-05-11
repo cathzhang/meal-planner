@@ -1,0 +1,7 @@
+# 运行时生成的数据库文件
+meal_planner.db
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
