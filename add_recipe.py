@@ -105,6 +105,7 @@ def collect_dish() -> dict:
         "菜价评估", ["便宜", "中等", "较贵"]
     )
     dish["has_prepackaged"] = input_bool("是否有成熟预制菜？")
+    dish["is_soup"] = input_bool("是否是汤菜？")
     dish["variant_group"] = input_optional_str("变体组（如：排骨汤系列）")
     dish["liked_by"] = input_list("谁喜欢（如：爸爸, 妈妈, 孩子）")
 
@@ -150,6 +151,7 @@ def add_to_db(dish: dict) -> None:
         seasonal_months=dish["seasonal_months"],
         price_level=PriceLevel(dish["price_level"]),
         has_prepackaged=dish["has_prepackaged"],
+        is_soup=dish["is_soup"],
         variant_group=dish["variant_group"],
         liked_by=dish["liked_by"],
     )

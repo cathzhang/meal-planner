@@ -40,6 +40,7 @@ def load_dishes_from_json() -> list[Dish]:
             seasonal_months=item.get("seasonal_months", []),
             price_level=PriceLevel(item["price_level"]),
             has_prepackaged=item["has_prepackaged"],
+            is_soup=item.get("is_soup", False),
             variant_group=item.get("variant_group"),
             liked_by=item.get("liked_by", []),
         ))

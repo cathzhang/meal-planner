@@ -69,6 +69,7 @@ def print_dish_detail(dish: Dish) -> None:
     print(f"  适合月份:   {_fmt_months(dish.seasonal_months)}")
     print(f"  菜价:       {dish.price_level.value}")
     print(f"  预制菜:     {_fmt_bool(dish.has_prepackaged)}")
+    print(f"  汤菜:       {_fmt_bool(dish.is_soup)}")
     print(f"  变体组:     {dish.variant_group or '-'}")
     print(f"  食材:       {_fmt_list(dish.ingredients)}")
     print(f"  酱料:       {_fmt_list(dish.sauces)}")
@@ -84,17 +85,18 @@ def print_dish_table(dishes: list[Dish], title: str = "菜品列表") -> None:
 
     print(f"\n📑 {title} (共 {len(dishes)} 道)")
     print("-" * 90)
-    print(f"{'菜名':<10} {'类型':<6} {'难度':<6} {'备菜':>4} {'制作':>4} {'总':>4} {'辣味':<6} {'菜价':<6} {'季节':<10} {'变体组'}")
-    print("-" * 90)
+    print(f"{'菜名':<10} {'类型':<6} {'难度':<6} {'备菜':>4} {'制作':>4} {'总':>4} {'辣味':<6} {'菜价':<6} {'季节':<10} {'汤':<4} {'变体组'}")
+    print("-" * 95)
     for d in dishes:
         season = "夏" if d.summer_recommended else ""
         season += "冬" if d.winter_recommended else ""
         season = season or "-"
         group = d.variant_group or "-"
+        soup = "汤" if d.is_soup else "-"
         print(
             f"{d.name:<10} {d.dish_type.value:<6} {d.difficulty.value:<6} "
             f"{d.prep_time_minutes:>4} {d.cook_time_minutes:>4} {d.total_time:>4} "
-            f"{d.spicy_level.value:<6} {d.price_level.value:<6} {season:<10} {group}"
+            f"{d.spicy_level.value:<6} {d.price_level.value:<6} {season:<10} {soup:<4} {group}"
         )
     print("-" * 90)
     print()
@@ -216,7 +218,7 @@ def cmd_edit(args: argparse.Namespace) -> None:
         val = input(f"{key} [{', '.join(current)}] (逗号分隔): ").strip()
         return [x.strip() for x in val.split(",") if x.strip()] if val else current
 
-    def edit_bool(key: str, current: bool) -> bool:
+    def edit_bool(key: str, current: bool = False) -> bool:
         val = input(f"{key} [{'y' if current else 'n'}]: ").strip().lower()
         if val in ("y", "yes", "是", "1"):
             return True
@@ -320,6 +322,7 @@ def cmd_stats(args: argparse.Namespace) -> None:
     seasonal = 0
     kid_friendly = 0
     prepackaged = 0
+    soup_count = 0
 
     for d in dishes:
         type_counts[d.dish_type.value] = type_counts.get(d.dish_type.value, 0) + 1
@@ -334,6 +337,8 @@ def cmd_stats(args: argparse.Namespace) -> None:
             kid_friendly += 1
         if d.has_prepackaged:
             prepackaged += 1
+        if d.is_soup:
+            soup_count += 1
 
     print(f"  大荤/小荤/全素:  {type_counts.get('大荤', 0)}/{type_counts.get('小荤', 0)}/{type_counts.get('全素', 0)}")
     print(f"  简单/中等/困难:  {diff_counts.get('简单', 0)}/{diff_counts.get('中等', 0)}/{diff_counts.get('困难', 0)}")
@@ -342,6 +347,7 @@ def cmd_stats(args: argparse.Namespace) -> None:
     print(f"  有季节限制:      {seasonal} 道")
     print(f"  儿童友好:        {kid_friendly} 道")
     print(f"  有预制菜:        {prepackaged} 道")
+    print(f"  汤菜:            {soup_count} 道")
     print(f"  变体组数:        {len(variant_groups)} 个 ({', '.join(variant_groups) if variant_groups else '-'})")
     print(f"{'=' * 40}\n")
 

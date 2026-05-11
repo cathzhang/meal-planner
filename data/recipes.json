@@ -22,6 +22,7 @@
     "price_level": "中等",
     "has_prepackaged": false,
     "variant_group": null,
+    "is_soup": false,
     "liked_by": [
       "爸爸"
     ]
@@ -49,6 +50,7 @@
     "price_level": "便宜",
     "has_prepackaged": true,
     "variant_group": null,
+    "is_soup": false,
     "liked_by": [
       "爸爸",
       "妈妈"
@@ -80,6 +82,7 @@
     "price_level": "中等",
     "has_prepackaged": true,
     "variant_group": null,
+    "is_soup": false,
     "liked_by": []
   },
   {
@@ -106,6 +109,7 @@
     "price_level": "较贵",
     "has_prepackaged": false,
     "variant_group": null,
+    "is_soup": false,
     "liked_by": [
       "全家"
     ]
@@ -131,6 +135,7 @@
     "price_level": "便宜",
     "has_prepackaged": false,
     "variant_group": null,
+    "is_soup": false,
     "liked_by": [
       "妈妈"
     ]
@@ -165,6 +170,7 @@
     "price_level": "便宜",
     "has_prepackaged": false,
     "variant_group": null,
+    "is_soup": false,
     "liked_by": [
       "爸爸",
       "孩子"
@@ -198,6 +204,7 @@
     "price_level": "较贵",
     "has_prepackaged": false,
     "variant_group": "羊肉汤系列",
+    "is_soup": true,
     "liked_by": [
       "爸爸"
     ]
@@ -228,6 +235,7 @@
     "price_level": "中等",
     "has_prepackaged": false,
     "variant_group": "排骨汤系列",
+    "is_soup": true,
     "liked_by": [
       "妈妈",
       "孩子"
@@ -260,6 +268,7 @@
     "price_level": "中等",
     "has_prepackaged": false,
     "variant_group": "排骨汤系列",
+    "is_soup": true,
     "liked_by": [
       "孩子"
     ]
@@ -291,6 +300,7 @@
     "price_level": "中等",
     "has_prepackaged": false,
     "variant_group": "排骨汤系列",
+    "is_soup": true,
     "liked_by": [
       "全家"
     ]
@@ -316,6 +326,7 @@
     "price_level": "便宜",
     "has_prepackaged": false,
     "variant_group": "番茄炒蛋系列",
+    "is_soup": false,
     "liked_by": [
       "妈妈",
       "孩子"
@@ -343,31 +354,7 @@
     "price_level": "便宜",
     "has_prepackaged": false,
     "variant_group": "番茄炒蛋系列",
-    "liked_by": [
-      "孩子"
-    ]
-  },
-  {
-    "name": "洋葱肥牛",
-    "ingredients": [
-      "洋葱",
-      "肥牛"
-    ],
-    "sauces": [
-      "日式牛丼调味汁"
-    ],
-    "cook_time_minutes": 5,
-    "prep_time_minutes": 5,
-    "difficulty": "简单",
-    "dish_type": "小荤",
-    "summer_recommended": true,
-    "winter_recommended": true,
-    "spicy_level": "不辣",
-    "kid_friendly": true,
-    "seasonal_months": [],
-    "price_level": "中等",
-    "has_prepackaged": false,
-    "variant_group": null,
+    "is_soup": false,
     "liked_by": [
       "孩子"
     ]

@@ -25,6 +25,7 @@ def init_db() -> None:
             kid_friendly INTEGER NOT NULL DEFAULT 0,
             price_level TEXT NOT NULL DEFAULT '中等',
             has_prepackaged INTEGER NOT NULL DEFAULT 0,
+            is_soup INTEGER NOT NULL DEFAULT 0,
             variant_group TEXT,
             ingredients TEXT NOT NULL,       -- JSON array
             sauces TEXT NOT NULL,            -- JSON array
@@ -51,6 +52,7 @@ def _dish_to_row(dish: Dish) -> tuple:
         1 if dish.kid_friendly else 0,
         dish.price_level.value,
         1 if dish.has_prepackaged else 0,
+        1 if dish.is_soup else 0,
         dish.variant_group,
         json.dumps(dish.ingredients, ensure_ascii=False),
         json.dumps(dish.sauces, ensure_ascii=False),
@@ -77,6 +79,7 @@ def _row_to_dish(row: sqlite3.Row) -> Dish:
         seasonal_months=json.loads(row["seasonal_months"]),
         price_level=PriceLevel(row["price_level"]),
         has_prepackaged=bool(row["has_prepackaged"]),
+        is_soup=bool(row["is_soup"]),
         variant_group=row["variant_group"],
     )
 
@@ -90,9 +93,9 @@ def insert_dish(dish: Dish) -> bool:
             INSERT INTO dishes (
                 name, cook_time_minutes, prep_time_minutes, difficulty, dish_type,
                 summer_recommended, winter_recommended, spicy_level, kid_friendly,
-                price_level, has_prepackaged, variant_group,
+                price_level, has_prepackaged, is_soup, variant_group,
                 ingredients, sauces, seasonal_months, liked_by
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, _dish_to_row(dish))
         conn.commit()
         return True

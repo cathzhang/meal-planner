@@ -67,6 +67,7 @@ class Dish:
     price_level: PriceLevel = PriceLevel.MEDIUM         # 菜价评估
     has_prepackaged: bool = False  # 是否有成熟预制菜
     variant_group: Optional[str] = None  # 变体组，同组菜可互相替换（如"排骨汤系列"）
+    is_soup: bool = False            # 是否是汤菜
 
     @property
     def total_time(self) -> int:
@@ -83,6 +84,42 @@ class Dish:
         if not self.seasonal_months:
             return True
         return month in self.seasonal_months
+
+
+@dataclass
+class MealConfig:
+    """
+    一餐的配置参数
+    
+    用于推荐算法前，先确定这顿饭的基本约束条件
+    """
+    people_count: int = 2                        # 吃饭人数
+    day_type: str = "工作日"                      # "工作日" 或 "周末"
+    need_soup: bool = True                       # 是否需要汤
+    target_main_dishes: Optional[int] = None     # 主菜数量，None=按人数自动计算
+    existing_dishes: List[str] = field(default_factory=list)  # 已有菜品（剩菜/打包菜）
+    
+    @property
+    def suggested_main_dishes(self) -> int:
+        """建议主菜数量：默认 n个人配 n-1 个主菜"""
+        if self.target_main_dishes is not None:
+            return self.target_main_dishes
+        return max(1, self.people_count - 1)
+    
+    @property
+    def total_dishes_needed(self) -> int:
+        """还需要做几个新菜（总需求 - 已有剩菜）"""
+        total = self.suggested_main_dishes
+        if self.need_soup:
+            total += 1
+        return max(0, total - len(self.existing_dishes))
+    
+    def is_workday_friendly(self, dish: 'Dish') -> bool:
+        """判断一道菜是否适合工作日"""
+        if self.day_type != "工作日":
+            return True
+        # 工作日：总耗时不超过35分钟，且难度不高于中等
+        return dish.total_time <= 35 and dish.difficulty in (Difficulty.EASY, Difficulty.MEDIUM)
 
 
 @dataclass
@@ -135,7 +172,8 @@ DISH_DATABASE = [
         kid_friendly=True,
         seasonal_months=[],
         price_level=PriceLevel.MEDIUM,
-        has_prepackaged=False
+        has_prepackaged=False,
+        is_soup=False
     ),
     Dish(
         name="麻婆豆腐",
@@ -152,7 +190,8 @@ DISH_DATABASE = [
         kid_friendly=False,
         seasonal_months=[],
         price_level=PriceLevel.CHEAP,
-        has_prepackaged=True
+        has_prepackaged=True,
+        is_soup=False
     ),
     Dish(
         name="鱼香肉丝",
@@ -186,7 +225,8 @@ DISH_DATABASE = [
         kid_friendly=True,
         seasonal_months=[],
         price_level=PriceLevel.EXPENSIVE,
-        has_prepackaged=False
+        has_prepackaged=False,
+        is_soup=False
     ),
     Dish(
         name="蒜蓉西兰花",
@@ -203,7 +243,8 @@ DISH_DATABASE = [
         kid_friendly=True,
         seasonal_months=[],
         price_level=PriceLevel.CHEAP,
-        has_prepackaged=False
+        has_prepackaged=False,
+        is_soup=False
     ),
     Dish(
         name="凉拌黄瓜",
@@ -238,7 +279,8 @@ DISH_DATABASE = [
         seasonal_months=[11, 12, 1, 2],
         price_level=PriceLevel.EXPENSIVE,
         has_prepackaged=False,
-        variant_group="羊肉汤系列"
+        variant_group="羊肉汤系列",
+        is_soup=True
     ),
     # --- 排骨汤变体系列 ---
     Dish(
@@ -257,7 +299,8 @@ DISH_DATABASE = [
         seasonal_months=[6, 7, 8],
         price_level=PriceLevel.MEDIUM,
         has_prepackaged=False,
-        variant_group="排骨汤系列"
+        variant_group="排骨汤系列",
+        is_soup=True
     ),
     Dish(
         name="玉米排骨汤",
@@ -275,7 +318,8 @@ DISH_DATABASE = [
         seasonal_months=[9, 10, 11],
         price_level=PriceLevel.MEDIUM,
         has_prepackaged=False,
-        variant_group="排骨汤系列"
+        variant_group="排骨汤系列",
+        is_soup=True
     ),
     Dish(
         name="萝卜排骨汤",
@@ -293,7 +337,8 @@ DISH_DATABASE = [
         seasonal_months=[11, 12, 1, 2],
         price_level=PriceLevel.MEDIUM,
         has_prepackaged=False,
-        variant_group="排骨汤系列"
+        variant_group="排骨汤系列",
+        is_soup=True
     ),
     # --- 番茄炒蛋变体 ---
     Dish(
@@ -312,7 +357,8 @@ DISH_DATABASE = [
         seasonal_months=[],
         price_level=PriceLevel.CHEAP,
         has_prepackaged=False,
-        variant_group="番茄炒蛋系列"
+        variant_group="番茄炒蛋系列",
+        is_soup=False
     ),
     Dish(
         name="番茄滑蛋",
@@ -330,7 +376,8 @@ DISH_DATABASE = [
         seasonal_months=[],
         price_level=PriceLevel.CHEAP,
         has_prepackaged=False,
-        variant_group="番茄炒蛋系列"
+        variant_group="番茄炒蛋系列",
+        is_soup=False
     ),
 ]
 
