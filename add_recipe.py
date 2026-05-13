@@ -12,6 +12,7 @@
 
 import json
 import os
+from typing import Optional
 from models import DishType, Difficulty, SpicyLevel, PriceLevel
 from db import insert_dish
 from models import Dish
@@ -62,7 +63,7 @@ def input_int(prompt: str) -> int:
             print("请输入数字")
 
 
-def input_optional_str(prompt: str) -> str | None:
+def input_optional_str(prompt: str) -> Optional[str]:
     """输入字符串，空则返回 None"""
     val = input(f"{prompt} (没有则直接回车): ").strip()
     return val if val else None

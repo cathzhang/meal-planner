@@ -34,8 +34,73 @@ def init_db() -> None:
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS meal_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date TEXT NOT NULL,
+            meal_time TEXT NOT NULL,
+            dishes TEXT NOT NULL,
+            people_count INTEGER,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_history_date ON meal_history(date)")
+
     conn.commit()
     conn.close()
+
+
+def add_meal_history(date: str, meal_time: str, dishes: list[str], people_count: int) -> None:
+    """记录一餐到历史"""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO meal_history (date, meal_time, dishes, people_count) VALUES (?, ?, ?, ?)",
+        (date, meal_time, json.dumps(dishes, ensure_ascii=False), people_count)
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_recent_dishes(days: int = 7) -> list[str]:
+    """获取最近 N 天做过的菜名（去重）"""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    # SQLite 不支持在 date() 函数字符串中用参数绑定，直接拼接
+    cursor.execute(
+        f"SELECT dishes FROM meal_history WHERE date >= date('now', '-{days} days') ORDER BY date DESC"
+    )
+    rows = cursor.fetchall()
+    conn.close()
+
+    all_dishes = set()
+    for row in rows:
+        all_dishes.update(json.loads(row[0]))
+    return list(all_dishes)
+
+
+def get_history(limit: int = 30) -> list[dict]:
+    """获取最近 N 条历史记录"""
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT * FROM meal_history ORDER BY date DESC, created_at DESC LIMIT ?",
+        (limit,)
+    )
+    rows = cursor.fetchall()
+    conn.close()
+    return [
+        {
+            "id": row["id"],
+            "date": row["date"],
+            "meal_time": row["meal_time"],
+            "dishes": json.loads(row["dishes"]),
+            "people_count": row["people_count"],
+            "created_at": row["created_at"],
+        }
+        for row in rows
+    ]
 
 
 def _dish_to_row(dish: Dish) -> tuple:

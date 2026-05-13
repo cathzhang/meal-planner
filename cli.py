@@ -25,6 +25,8 @@ from db import (
     get_dishes_by_variant_group,
     get_dish_names,
     insert_dish,
+    add_meal_history,
+    get_history,
     DB_PATH,
 )
 from models import (
@@ -33,9 +35,13 @@ from models import (
     Difficulty,
     SpicyLevel,
     PriceLevel,
+    MealConfig,
 )
 from add_recipe import collect_dish, append_to_json
 import sqlite3
+from datetime import datetime
+
+from recommend import recommend
 
 JSON_PATH = "data/recipes.json"
 
@@ -305,6 +311,54 @@ def cmd_delete(args: argparse.Namespace) -> None:
     print("📝 记得执行: git add data/recipes.json && git commit -m 'Delete ...'")
 
 
+def cmd_recommend(args: argparse.Namespace) -> None:
+    """推荐菜单"""
+    init_db()
+    config = MealConfig(
+        people_count=args.people,
+        day_type=args.day,
+        need_soup=not args.no_soup,
+    )
+    month = args.month if args.month else datetime.now().month
+
+    plan = recommend(config, month=month)
+    if not plan:
+        print("❌ 无法生成推荐菜单，菜品数据不足或约束过严")
+        return
+
+    print(f"\n🍽️  推荐菜单 ({config.people_count}人, {config.day_type}, {month}月)")
+    print("-" * 50)
+    for i, d in enumerate(plan.dishes, 1):
+        tag = "汤" if d.is_soup else d.dish_type.value
+        print(f"  {i}. {d.name:<12} {tag:<6} {d.total_time}分钟")
+    print("-" * 50)
+    print(f"⏱️  预估总耗时: {plan.total_time} 分钟")
+    print(f"🛒 购物清单: {', '.join(plan.shopping_list)}")
+
+    confirm = input("\n📋 采纳并记录到历史？ (y/n): ").strip().lower()
+    if confirm in ("y", "yes", "是"):
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        dish_names = [d.name for d in plan.dishes]
+        add_meal_history(date_str, "晚餐", dish_names, config.people_count)
+        print("✅ 已记录到历史")
+
+
+def cmd_history(args: argparse.Namespace) -> None:
+    """查看历史记录"""
+    init_db()
+    records = get_history(limit=args.limit)
+    if not records:
+        print("暂无历史记录")
+        return
+
+    print(f"\n📜 最近 {len(records)} 条历史记录")
+    print("-" * 60)
+    for r in records:
+        dishes = ", ".join(r["dishes"])
+        print(f"  {r['date']} [{r['meal_time']}] {dishes}")
+    print("-" * 60)
+
+
 def cmd_stats(args: argparse.Namespace) -> None:
     """数据统计"""
     init_db()
@@ -365,6 +419,8 @@ def main() -> None:
   python cli.py edit 番茄炒蛋
   python cli.py delete 测试菜
   python cli.py stats
+  python cli.py recommend
+  python cli.py history
         """,
     )
     subparsers = parser.add_subparsers(dest="command", help="可用命令")
@@ -395,6 +451,17 @@ def main() -> None:
     # stats
     subparsers.add_parser("stats", help="数据统计")
 
+    # recommend
+    rec_parser = subparsers.add_parser("recommend", help="推荐菜单")
+    rec_parser.add_argument("--people", type=int, default=3, help="吃饭人数")
+    rec_parser.add_argument("--day", choices=["工作日", "周末"], default="工作日", help="日期类型")
+    rec_parser.add_argument("--no-soup", action="store_true", help="不需要汤")
+    rec_parser.add_argument("--month", type=int, help="月份(1-12)，默认当前月")
+
+    # history
+    hist_parser = subparsers.add_parser("history", help="查看历史记录")
+    hist_parser.add_argument("--limit", type=int, default=30, help="显示条数")
+
     args = parser.parse_args()
 
     if not args.command:
@@ -409,6 +476,8 @@ def main() -> None:
         "edit": cmd_edit,
         "delete": cmd_delete,
         "stats": cmd_stats,
+        "recommend": cmd_recommend,
+        "history": cmd_history,
     }
 
     commands[args.command](args)
